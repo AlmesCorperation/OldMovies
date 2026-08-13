@@ -56,6 +56,7 @@
       padding: 24px;
       margin-bottom: 40px;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+      transition: opacity 0.2s ease, transform 0.2s ease;
     }
 
     .clean-video-card h3 {
@@ -108,21 +109,20 @@
     <img src="logo.jpg" alt="OldMovies Logo" style="max-width: 150px; height: auto; margin-bottom: 10px; border-radius: 4px;">
     <h1>OldMovies</h1>
     <p>Streaming the golden age of early cinema: 1900s–1910s</p>
-<div class="search-container" style="max-width: 400px; margin: 20px auto 0 auto; position: relative;">
-  <input type="text" id="movie-search-bar" placeholder="Search 1900s–1910s classics..." style="
-    width: 100%;
-    padding: 12px 20px;
-    background-color: var(--bg-color);
-    border: 1px solid var(--border-color);
-    border-radius: 25px;
-    color: var(--text-color);
-    font-size: 1rem;
-    outline: none;
-    box-sizing: border-box;
-    transition: border-color 0.3s ease;
-  ">
-</div>
-
+    <div class="search-container" style="max-width: 400px; margin: 20px auto 0 auto; position: relative;">
+      <input type="text" id="movie-search-bar" placeholder="Search 1900s–1910s classics..." style="
+        width: 100%;
+        padding: 12px 20px;
+        background-color: var(--bg-color);
+        border: 1px solid var(--border-color);
+        border-radius: 25px;
+        color: var(--text-color);
+        font-size: 1rem;
+        outline: none;
+        box-sizing: border-box;
+        transition: border-color 0.3s ease;
+      ">
+    </div>
   </header>
 
   <main class="container">
@@ -223,45 +223,8 @@
     <p>Platform code, UI layout, curation, and written descriptions are proprietary and protected under All Rights Reserved licensing.</p>
   </footer>
 
-  <!-- Dynamic Script for remaining Archive.org items -->
-  <script>
-  (function() {
-    function initCleanPlayers() {
-      const cards = document.querySelectorAll(".clean-video-card[data-archive-id]");
-      cards.forEach(card => {
-        const archiveId = card.getAttribute("data-archive-id");
-        const videoElement = card.querySelector(".ia-clean-player");
-        
-        if (!archiveId || !videoElement || videoElement.src) return;
-
-        const metaUrl = "https://archive.org/metadata/" + archiveId;
-
-        fetch(metaUrl)
-          .then(response => response.json())
-          .then(data => {
-            if (!data || !data.files) return;
-
-            const mp4File = data.files.find(file => 
-              file.name && 
-              file.name.toLowerCase().endsWith('.mp4') && 
-              !file.name.includes('ia.mp4')
-            );
-
-            if (mp4File) {
-              videoElement.src = "https://archive.org/download/" + archiveId + "/" + encodeURIComponent(mp4File.name);
-            }
-          })
-          .catch(error => console.error("Error retrieving stream for " + archiveId + ":", error));
-      });
-    }
-
-    if (document.readyState === "loading") {
-      document.addEventListener("DOMContentLoaded", initCleanPlayers);
-    } else {
-      initCleanPlayers();
-    }
-  })();
-  </script>
+  <!-- External Script Link -->
+  <script src="backend.js"></script>
 
 </body>
 </html>
