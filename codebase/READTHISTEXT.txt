@@ -1,0 +1,2 @@
+Okay, Okay, so basically this is the codebase folder where I put my files in.
+But... Don't steal my stuff (read license.txt), okay?
